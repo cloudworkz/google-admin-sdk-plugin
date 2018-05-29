@@ -23,8 +23,12 @@ import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class GoogleAdminService {
+
+  private final static Logger logger = LoggerFactory.getLogger(GoogleAdminService.class);
 
   private final String applicationName = "Google Admin Service @ Jenkins";
 
@@ -82,13 +86,12 @@ public class GoogleAdminService {
     }
   }
 
-//  public static void main(String[] args) {
-//    try {
-//      List<String> members = new GoogleAdminService(".credentials/", ".credentials/credentials.json", "admin@test.com").getGroupMembers("group@test.com");
-//      System.out.println(members);
-//    } catch (Exception e) {
-//      System.out.println("error");
-//      e.printStackTrace();
-//    }
-//  }
+  public static void main(String[] args) {
+    try {
+      List<String> members = new GoogleAdminService(".credentials/", ".credentials/credentials.json", "admin@test.com").getGroupMembers("group@test.com");
+      logger.info("got members {}", members);
+    } catch (Throwable t) {
+      logger.error("error fetching members", t);
+    }
+  }
 }
